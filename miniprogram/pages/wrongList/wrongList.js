@@ -17,7 +17,8 @@ Page({
     scrollTop: 0,
     height: 0,
     ischecked: false,
-    wronglist: []
+    wronglist: [],
+    app:app
   },
   //对本页进行测试
   handleQuestion() {
@@ -97,6 +98,36 @@ Page({
     this.loadData(pageNo)
     this.setData({
       pageNo: pageNo
+    })
+
+  },
+  deleteWrong(e){
+    console.log(e.target.dataset.xuhao)
+    var xuhao = e.target.dataset.xuhao;
+    var arr = this.data.wronglist;
+    if (arr.indexOf(xuhao) != -1) {
+      arr.splice(arr.indexOf(xuhao),1)
+      this.setData({
+        wronglist: arr
+      })
+      
+      this.deleteQues(xuhao)
+    } else {
+      console.log('不存在')
+    }
+
+
+  },
+  deleteQues:function(xuhao){
+    var ques = this.data.questions
+    for(var i=0;i<ques.length;i++){
+      if(ques[i].xuhao==xuhao){
+        ques.splice(i,1)
+      }
+    }
+    console.log(ques)
+    this.setData({
+      questions:ques
     })
 
   },

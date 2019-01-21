@@ -102,12 +102,13 @@ Page({
   addWrong(e){
     console.log(e.target.dataset.xuhao)
     var xuhao=e.target.dataset.xuhao;
-    var arr=this.data.wronglist;
+    var arr = this.data.wronglist;
     if(arr.indexOf(xuhao)==-1){
       arr.push(xuhao)
       this.setData({
         wronglist:arr
       })
+      
     }else{
       console.log('已存在')
     }
@@ -152,9 +153,11 @@ Page({
           if (res.data.length != 0) {
             this.setData({
               wronglist: res.data[0].wronglist
-            })
+            }) 
           } else {
-            this.wronglist = []
+            this.setData({
+              wronglist:[]
+            }) 
           }
 
         },
@@ -210,7 +213,7 @@ Page({
           db.collection('wronglist').add({
             data:{
             openid:u_openid,
-            wronglist:this.data.wronglist,
+            wronglist: this.data.wronglist,
             tknum:"01"},
             success:res=>{
               console.log(res)
@@ -228,7 +231,7 @@ Page({
           var u_openid=app.globalData.openid;
           db.collection('wronglist').doc(doc_id).update({
             data:{
-            wronglist:this.data.wronglist
+              wronglist: this.data.wronglist
           },
           success:res=>{
             console.log(res)

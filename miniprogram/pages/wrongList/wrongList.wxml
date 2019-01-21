@@ -4,6 +4,7 @@
     <radio-group class="radio-group" bindchange="radioChange" wx:if="{{item.type=='单选题'}}">
       <label class="content" style='color:{{tools.isRight(quesState,item.selected,item.answer)? "black":"red"}}'>{{item.xuhao}}-[{{item.type}}]{{item.content}}</label>
       <label wx:if="{{quesState!='test'}}">{{item.answer}}</label>
+      <button  data-xuhao="{{item.xuhao}}" bindtap='deleteWrong'>删除错题</button>
       <label class="radio" style='background-color:{{tools.getbackgroudcolor(quesState,item.answer,"A")}}; color:{{tools.getcolor(quesState,item.selected,item.answer,"A")}}'>
         <radio value="{{'A'+'-'+index}}" checked='{{ischecked}}' /> A{{item.A}}
       </label>
@@ -20,6 +21,7 @@
     <radio-group class="radio-group" bindchange="radioChange" wx:if="{{item.type=='判断题'}}">
       <label class="content" style='color:{{tools.isRight(quesState,item.selected,item.answer)? "black":"red"}}'>{{item.xuhao}}-[{{item.type}}]{{item.content}}</label>
       <label wx:if="{{quesState!='test'}}">{{item.answer}}</label>
+      <button data-xuhao="{{item.xuhao}}" bindtap='deleteWrong'>删除错题</button>
       <label class="radio" style='background-color:{{tools.getbackgroudcolor(quesState,item.answer,"A")}}; color:{{tools.getcolor(quesState,item.selected,item.answer,"A")}}'>
         <radio value="{{'A'+'-'+index}}" checked='{{ischecked}}' /> A{{item.A}}
       </label>
@@ -30,6 +32,7 @@
     <checkbox-group class="checkbox-group" wx:if="{{item.type=='多选题'}}" bindchange="checkboxChange">
       <label class="content" style='color:{{tools.isRight(quesState,item.selected,item.answer)? "black":"red"}}'>{{item.xuhao}}-[{{item.type}}]{{item.content}}</label>
       <label wx:if="{{quesState!='test'}}">{{item.answer}}</label>
+      <button data-xuhao="{{item.xuhao}}"bindtap='deleteWrong'>删除错题</button>
       <label class="radio" style='background-color:{{tools.getbackgroudcolor(quesState,item.answer,"A")}}; color:{{tools.getcolor(quesState,item.selected,item.answer,"A")}}'>
         <checkbox value="{{'A'+'-'+index}}" checked='{{ischecked}}' /> A{{item.A}}
       </label>
