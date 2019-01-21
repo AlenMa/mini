@@ -30,6 +30,7 @@
   <view class="uploader">
     <navigator url="../databaseGuide/databaseGuide" open-type="navigate" class="uploader-text">
       <text>前端操作数据库</text>
+      <button><official-account></official-account></button>
     </navigator>
   </view>
 
@@ -39,16 +40,16 @@
       <text>快速新建云函数</text>
     </navigator>
   </view>
-    <!-- 新建云函数 -->
+    <!-- 题库 -->
   <view class="uploader">
     <navigator url="../question/question" open-type="navigate" class="uploader-text">
       <text>题目</text>
     </navigator>
   </view>
-      <!-- 新建云函数 -->
+      <!-- 错题本 -->
   <view class="uploader">
-    <navigator url="../main/main" open-type="navigate" class="uploader-text">
-      <text>主页</text>
+    <navigator url="../wrongList/wrongList" open-type="navigate" class="uploader-text">
+      <text>错题本</text>
     </navigator>
   </view>
 

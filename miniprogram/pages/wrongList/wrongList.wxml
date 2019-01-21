@@ -1,11 +1,9 @@
 <wxs src="../tools.wxs" module="tools" />
 <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style='height: {{height}}px'>
   <view wx:for="{{questions}}" wx:for-index="index">
-<!-- 单选题 -->
     <radio-group class="radio-group" bindchange="radioChange" wx:if="{{item.type=='单选题'}}">
       <label class="content" style='color:{{tools.isRight(quesState,item.selected,item.answer)? "black":"red"}}'>{{item.xuhao}}-[{{item.type}}]{{item.content}}</label>
       <label wx:if="{{quesState!='test'}}">{{item.answer}}</label>
-      <button wx:if="{{tools.ifaddwong(wronglist,item.xuhao)}}" data-xuhao="{{item.xuhao}}" bindtap='addWrong'>添加到错题本</button>
       <label class="radio" style='background-color:{{tools.getbackgroudcolor(quesState,item.answer,"A")}}; color:{{tools.getcolor(quesState,item.selected,item.answer,"A")}}'>
         <radio value="{{'A'+'-'+index}}" checked='{{ischecked}}' /> A{{item.A}}
       </label>
@@ -19,7 +17,6 @@
         <radio value="{{'D'+'-'+index}}" checked='{{ischecked}}' /> D{{item.D}}
       </label>
     </radio-group>
-<!-- 判断题 -->
     <radio-group class="radio-group" bindchange="radioChange" wx:if="{{item.type=='判断题'}}">
       <label class="content" style='color:{{tools.isRight(quesState,item.selected,item.answer)? "black":"red"}}'>{{item.xuhao}}-[{{item.type}}]{{item.content}}</label>
       <label wx:if="{{quesState!='test'}}">{{item.answer}}</label>
@@ -30,7 +27,6 @@
         <radio value="{{'B'+'-'+index}}" checked='{{ischecked}}' /> B{{item.B}}
       </label>
     </radio-group>
-<!-- 多选题 -->
     <checkbox-group class="checkbox-group" wx:if="{{item.type=='多选题'}}" bindchange="checkboxChange">
       <label class="content" style='color:{{tools.isRight(quesState,item.selected,item.answer)? "black":"red"}}'>{{item.xuhao}}-[{{item.type}}]{{item.content}}</label>
       <label wx:if="{{quesState!='test'}}">{{item.answer}}</label>
@@ -54,11 +50,9 @@
       </label>
     </checkbox-group>
   </view>
-  <!-- 测试按钮 -->
   <button class="test" bindtap='handleQuestion'>{{buttonState}}</button>
-  <!-- 下一页 -->
+
   <button class="next" bindtap='nextPage'>next</button>
-  <!-- 选页 -->
   <view>
     <picker bindchange="bindPickerChange" value="{{pageNo-1}}" range="{{pageArray}}">
       <button class="section">{{pageNo}}页</button>

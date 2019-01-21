@@ -1,14 +1,15 @@
 {
   "pages": [
-    "pages/question/question",
     "pages/index/index",
+    "pages/main/main",
+    "pages/question/question",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
-    "pages/main/main"
+    "pages/wronglist/wrongList"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

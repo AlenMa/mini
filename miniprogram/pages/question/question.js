@@ -1,4 +1,5 @@
 // miniprogram/pages/question/question.js
+const app = getApp()
 Page({
 
   /**
@@ -7,18 +8,16 @@ Page({
   data: {
     questions:null,
     start:1,
-    pageNo:0,
-    isclear:false,
-    result:false,
+    pageNo:1,
     quesState:'learn', //learn-学习状态 test-考试状态 result-考试结果 
     buttonState:'测试',
-    pageArray:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
-    17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
-    41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58],
+    pageArray:[],
     scrollTop:0,
     height:0,
-    ischecked:false
+    ischecked:false,
+    wronglist:[]
   },
+  //对本页进行测试
   handleQuestion(){
     this.setData({
       scrollTop: 0
@@ -48,6 +47,7 @@ Page({
 
     }
   },
+  //多选判断对出错
   checkboxChange(e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value)
     var selected=e.detail.value
@@ -66,6 +66,7 @@ Page({
       [qname]: selectedvalue
     })
   },
+  //单选判断对错
   radioChange(e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
     var selected = e.detail.value
@@ -80,14 +81,175 @@ Page({
       [qname]: selectedvalue
     })
   },
+  //选页
   bindPickerChange(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
+    var pageNo=this.data.pageArray[e.detail.value]
     this.setData({
-      pageNo: e.detail.value
+      pageNo: pageNo
     })
-    wx.navigateTo({
-      url: '../question/question?pageNo='+this.data.pageNo,
+    this.loadData(pageNo)
+  },
+  nextPage(e){
+    var pageNo=this.data.pageNo+1
+    this.loadData(pageNo)
+    this.setData({
+      pageNo: pageNo
     })
+
+  },
+  //添加错题
+  addWrong(e){
+    console.log(e.target.dataset.xuhao)
+    var xuhao=e.target.dataset.xuhao;
+    var arr=this.data.wronglist;
+    if(arr.indexOf(xuhao)==-1){
+      arr.push(xuhao)
+      this.setData({
+        wronglist:arr
+      })
+    }else{
+      console.log('已存在')
+    }
+
+  },
+    /**
+   * 加载每页数据
+   */
+  loadData:function(pageNo){
+    //加载题目
+    const db=wx.cloud.database();
+    const _=db.command
+    var selectNum=this.data.start+(pageNo-1)*20
+    db.collection('tiku01').where({xuhao:_.gte(selectNum).and(_.lte(selectNum+20))}).get({
+      success:res=>{
+        this.setData({
+          questions:res.data
+        })
+        console.log('[数据库] [查询记录] 成功: ', res)
+
+      },
+      fail:err=>{
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+
+      }
+    })
+
+
+
+  },
+  getWrongList:function(){
+    const db = wx.cloud.database();
+    const _ = db.command
+    //加载错题本
+    db.collection('wronglist').where({ openid: app.globalData.openid })
+      .get({
+        success: res => {
+          if (res.data.length != 0) {
+            this.setData({
+              wronglist: res.data[0].wronglist
+            })
+          } else {
+            this.wronglist = []
+          }
+
+        },
+        fail: err => {
+          console.log(err)
+
+        }
+      })
+
+  },
+      /**
+   * 获取总页数
+   */
+  getPageCount: function () {
+    const db = wx.cloud.database();
+    const _ = db.command
+    db.collection('tiku01').count({
+      success: res => {
+        var arr = [];
+        var pageCount =parseInt(res.total/20)+1
+        for (var i = 1; i <= pageCount; i++) {
+          arr.push(i);
+        }
+        
+        this.setData({
+          pageArray: arr
+        })
+        console.log('[数据库] [查询记录] 成功: ', res)
+
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+
+      }
+    })
+
+
+  },
+  /**
+   * 错题本同步
+   */
+  updateWrongList:function(){
+    const db=wx.cloud.database();
+    const _=db.command;
+    var u_openid = app.globalData.openid
+    db.collection('wronglist').where({ openid: u_openid}).get({
+      success:res=>{
+        if(res.data.length==0){
+          db.collection('wronglist').add({
+            data:{
+            openid:u_openid,
+            wronglist:this.data.wronglist,
+            tknum:"01"},
+            success:res=>{
+              console.log(res)
+            },
+            fail:err=>{
+              console.log(err)
+            }
+          }
+
+          )
+
+        }else{
+          console.log("更新错题本")
+          var doc_id=res.data[0]._id
+          var u_openid=app.globalData.openid;
+          db.collection('wronglist').doc(doc_id).update({
+            data:{
+            wronglist:this.data.wronglist
+          },
+          success:res=>{
+            console.log(res)
+          },
+          fail:err=>{
+            console.log(err)
+          }
+          })
+
+
+        }
+
+      },
+      fail:err=>{
+        wx.showToast({
+          title: '查询记录失败',
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+
   },
 
   /**
@@ -105,24 +267,10 @@ Page({
         pageNo: parseInt(options.pageNo)
       })
     }
-    const db = wx.cloud.database();
-    const _ = db.command
-    var selectnum = this.data.start + this.data.pageNo * 20
-    db.collection('tiku01').where({ xuhao: _.gte(selectnum).and(_.lte(2000))}).get({
-      success: res => {
-        this.setData({
-          questions: res.data
-        })
-        console.log('[数据库] [查询记录] 成功: ', res)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
+    this.getPageCount()
+    this.getWrongList()
+    this.loadData(1)
+
 
   },
 
@@ -144,6 +292,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    
 
   },
 
@@ -151,6 +300,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    this.updateWrongList()
 
   },
 

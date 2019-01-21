@@ -48,7 +48,14 @@ var isRight=function(quesState,selected,answer){
   
 }
 var pageadd=function(pageNo){
-  return parseInt(pageNo)+1
+  return parseInt(pageNo)
+}
+
+var ifaddwong=function(wrongList,xuhao){
+  console.log('xuhao:'+xuhao)
+  console.log(wrongList)
+  console.log(wrongList.indexOf(xuhao) == -1)
+  return wrongList.indexOf(xuhao)==-1
 }
 
 module.exports.getcheck = getcheck;
@@ -56,3 +63,5 @@ module.exports.getcolor = getcolor;
 module.exports.getbackgroudcolor = getbackgroudcolor;
 module.exports.isRight=isRight;
 module.exports.pageadd=pageadd;
+module.exports.ifaddwong = ifaddwong;
+
