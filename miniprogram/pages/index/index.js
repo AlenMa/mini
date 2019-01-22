@@ -5,10 +5,11 @@ Page({
   data: {
     avatarUrl: './user-unlogin.png',
     userInfo: {},
-    logged: false,
+    logged: true,
     takeSession: false,
     requestResult: ''
   },
+  
 
   onLoad: function() {
     if (!wx.cloud) {
@@ -30,6 +31,7 @@ Page({
       }
     })
 
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -39,9 +41,14 @@ Page({
             success: res => {
               this.setData({
                 avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
+                userInfo: res.userInfo,
+                logged:true
               })
             }
+          })
+        }else{
+          this.setData({
+            logged:false
           })
         }
       }

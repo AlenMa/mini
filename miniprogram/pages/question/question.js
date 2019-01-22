@@ -212,7 +212,7 @@ Page({
         if(res.data.length==0){
           db.collection('wronglist').add({
             data:{
-            openid:u_openid,
+              openid: app.globalData.openid,
             wronglist: this.data.wronglist,
             tknum:"01"},
             success:res=>{
@@ -254,7 +254,6 @@ Page({
     })
 
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -273,8 +272,6 @@ Page({
     this.getPageCount()
     this.getWrongList()
     this.loadData(1)
-
-
   },
 
   /**

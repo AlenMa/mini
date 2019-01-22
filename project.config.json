@@ -11,6 +11,7 @@
 	"appid": "wxce36b61a123a301f",
 	"projectname": "dang",
 	"libVersion": "2.2.5",
+	"compileType": "miniprogram",
 	"condition": {
 		"search": {
 			"current": -1,

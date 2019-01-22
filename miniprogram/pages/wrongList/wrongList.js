@@ -1,4 +1,4 @@
-// miniprogram/pages/wronglist/wrongList.js
+// miniprogram/pages/wronglist/wronglist.js
 const app = getApp()
 Page({
 
@@ -18,7 +18,6 @@ Page({
     height: 0,
     ischecked: false,
     wronglist: [],
-    app:app
   },
   //对本页进行测试
   handleQuestion() {
@@ -106,16 +105,32 @@ Page({
     var xuhao = e.target.dataset.xuhao;
     var arr = this.data.wronglist;
     if (arr.indexOf(xuhao) != -1) {
-      arr.splice(arr.indexOf(xuhao),1)
+      arr[arr.indexOf(xuhao)]=-1
+      // delete arr[arr.indexOf(xuhao)]
+      // arr.splice(arr.indexOf(xuhao),1)
       this.setData({
         wronglist: arr
       })
-      
       this.deleteQues(xuhao)
     } else {
       console.log('不存在')
     }
-
+  },
+  //选页
+  bindPickerChange(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var pageNo = this.data.pageArray[e.detail.value]
+    this.setData({
+      pageNo: pageNo
+    })
+    this.loadData(pageNo)
+  },
+  nextPage(e) {
+    var pageNo = this.data.pageNo + 1
+    this.loadData(pageNo)
+    this.setData({
+      pageNo: pageNo
+    })
 
   },
   deleteQues:function(xuhao){
@@ -133,6 +148,100 @@ Page({
   },
 
   /**
+* 错题本同步
+*/
+  updatewronglist: function () {
+    const db = wx.cloud.database();
+    const _ = db.command;
+    var u_openid = app.globalData.openid
+    var wlist=this.data.wronglist
+    for(var i=0;i<wlist.length;i++){
+      if(wlist[i]==-1){
+        wlist.splice(i,1)
+      }
+    }
+    wlist.sort(((a,b)=>a-b))
+    this.setData({
+      wronglist:wlist
+    })
+    db.collection('wronglist').where({ openid: u_openid }).get({
+      success: res => {
+        if (res.data.length == 0) {
+          db.collection('wronglist').add({
+            data: {
+              openid: app.globalData.openid,
+              wronglist: this.data.wronglist,
+              tknum: "01"
+            },
+            success: res => {
+              console.log(res)
+            },
+            fail: err => {
+              console.log(err)
+            }
+          }
+
+          )
+
+        } else {
+          console.log("更新错题本")
+          var doc_id = res.data[0]._id
+          var u_openid = app.globalData.openid;
+          db.collection('wronglist').doc(doc_id).update({
+            data: {
+              wronglist: this.data.wronglist
+            },
+            success: res => {
+              console.log(res)
+            },
+            fail: err => {
+              console.log(err)
+            }
+          })
+
+
+        }
+
+      },
+      fail: err => {
+        wx.showToast({
+          title: '查询记录失败',
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+
+  },
+
+  /**
+* 加载错题本
+*/
+  loadData: function (pageNo) {
+    const db = wx.cloud.database();
+    const _ = db.command;
+    var u_openid = app.globalData.openid
+    var start=(pageNo-1)*20
+    var end=start+20
+    var pagewronglist=this.data.wronglist.slice(start,end)
+    db.collection('tiku01').where({ xuhao: _.in(pagewronglist) }).get(
+      {
+        success: res => {
+          this.setData({
+            questions: res.data
+          })
+          console.log(res)
+
+        },
+        fail: err => {
+          console.log(err)
+
+        }
+
+      }
+    )
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
@@ -142,12 +251,7 @@ Page({
         this.setData({ height: ht })
       }
     });
-    if (options.pageNo != undefined) {
-      this.setData({
-        pageNo: parseInt(options.pageNo)
-      })
-    }
-    //加载错题
+
     const db = wx.cloud.database();
     const _ = db.command
     //获得总页数
@@ -164,22 +268,8 @@ Page({
             pageArray: arr,
             wronglist: wronglist
           })
-          db.collection('tiku01').where({ xuhao: _.in(wronglist) }).get(
-            {
-              success: res => {
-                this.setData({
-                  questions:res.data
-                })
-                console.log(res)
-
-              },
-              fail: err => {
-                console.log(err)
-
-              }
-
-            }
-          )
+          //加载错题
+          this.loadData(1)
         }
         console.log('[数据库] [查询记录] 成功: ', res)
       },
@@ -196,6 +286,7 @@ Page({
 
 
   },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -216,12 +307,14 @@ Page({
    */
   onHide: function () {
 
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    this.updatewronglist()
 
   },
 

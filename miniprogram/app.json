@@ -9,13 +9,13 @@
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
-    "pages/wronglist/wrongList"
+    "pages/wrongList/wrongList"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "迎检题库",
+    "navigationBarTitleText": "党建题库",
     "navigationBarTextStyle": "black"
   }
 }
