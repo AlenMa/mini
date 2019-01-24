@@ -135,3 +135,24 @@ page {
   line-height: 36rpx;
   word-break: break-all;
 }
+/* 
+去button样式 */
+button {
+  font-size: 28rpx;
+  background-color: #fff;
+  border: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  border-radius:0;
+}
+
+input {
+  outline: none;
+  border: none;
+  list-style: none;
+}
+
+button::after {
+  border: none;
+}

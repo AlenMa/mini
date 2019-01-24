@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "wx-server-sdk": "latest"
+    "http": "0.0.0",
+    "querystring": "^0.2.0",
+    "request-promise": "^4.2.2",
+    "wx-server-sdk": "^0.1.4"
   }
 }

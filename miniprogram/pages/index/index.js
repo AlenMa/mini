@@ -30,6 +30,17 @@ Page({
         console.error('[云函数] [login] 调用失败', err)
       }
     })
+    wx.cloud.callFunction({
+      name: 'test',
+      data: {},
+      success: res => {
+        console.log('[云函数] [test] user openid: ', res.result.openid)
+        app.globalData.openid = res.result.openid
+      },
+      fail: err => {
+        console.error('[云函数] [test] 调用失败', err)
+      }
+    })
 
 
     // 获取用户信息
@@ -53,6 +64,42 @@ Page({
         }
       }
     })
+  },
+  formSubmit(e) {
+    const db = wx.cloud.database();
+    const _ = db.command;
+    db.collection("formIdlist").add({
+      data:{
+        formId: e.detail.formId,
+        openid:app.globalData.openid,
+        isactive:true,
+        subtime: Number(new Date())
+      },
+      success:res=>{
+        console.log('提交formId成功：',res)
+      },
+      fail:err=>{
+        console.log('提交formId失败：' ,err)
+    
+      }
+    })
+    if(e.detail.target.dataset.type=="ques"){
+      console.log('ques')
+      // wx.redirectTo({
+      //   url: '../question/question',
+      // })
+      wx.navigateTo({
+        url: '../question/question',
+      })
+
+    } else if (e.detail.target.dataset.type == "wronglist"){
+      console.log('wronglist')
+      wx.navigateTo({
+        url: '../wrongList/wrongList',
+      })
+
+    }
+    console.log('form发生了submit事件，携带数据为：', e.detail)
   },
 
   onGetUserInfo: function(e) {
