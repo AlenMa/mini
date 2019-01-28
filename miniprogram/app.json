@@ -1,6 +1,6 @@
 {
   "pages": [
-    "index/index",
+    "pages/index/index",
     "pages/dang/index/index",
     "pages/dang/question/question",
     "pages/dang/wrongList/wrongList"
