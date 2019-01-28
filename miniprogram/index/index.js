@@ -1,16 +1,10 @@
-// miniprogram/pages/main/main.js
+// miniprogram/index/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    openid:"",
-    learnedcnt:0,
-    allcnt:1105,
-    wrong:[],
-    start:0,
-    end:0
 
   },
 

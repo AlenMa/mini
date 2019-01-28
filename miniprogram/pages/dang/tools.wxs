@@ -1,0 +1,67 @@
+var getcheck = function (answer, c) {
+  // console.log(answer)
+  // console.log(c)
+  // console.log(answer.indexOf(c) != -1)
+  return answer.indexOf(c) != -1
+};
+
+//选项背景色设置
+var getbackgroudcolor = function (quesState,answer,value){
+  //console.log("quesState:" + quesState + " answer:" + answer + " value:" + value)
+
+  if(quesState=='test'){
+    return '#F8F8F8'
+  } else{
+    
+    return answer.indexOf(value) != -1 ? 'green' : '#F8F8F8' //正确答案返回绿色
+  }
+  
+}
+
+//设置选项字体颜色
+var getcolor = function (quesState, selected, answer, value) {
+  // console.log("result:" + quesState + " selected:" + selected + " answer:" + answer + " value:" + value)
+  if (quesState == 'result') {
+    if (selected.indexOf(value) != -1 && answer.indexOf(value) == -1) {
+      return 'red'
+    }
+    else {
+      return 'black'
+    }
+  } else {
+    return 'black'
+  }
+}
+//判断题目是否正确
+var isRight=function(quesState,selected,answer){
+  if(quesState=='result'){
+    var reg = getRegExp(",", "g")
+    var selectedStr = selected.sort().toString().replace(reg, "");
+  console.log(selectedStr);
+  if(selectedStr==answer.trim()){
+    return true
+  }else{
+    return false
+  }}else{
+    return true
+  }
+  
+}
+var pageadd=function(pageNo){
+  return parseInt(pageNo)
+}
+
+var ifaddwong=function(wrongList,xuhao){
+  console.log('xuhao:'+xuhao)
+  console.log(wrongList)
+  console.log(wrongList.indexOf(xuhao) == -1)
+  return wrongList.indexOf(xuhao)==-1
+}
+
+module.exports.getcheck = getcheck;
+module.exports.getcolor = getcolor;
+module.exports.getbackgroudcolor = getbackgroudcolor;
+module.exports.isRight=isRight;
+module.exports.pageadd=pageadd;
+module.exports.ifaddwong = ifaddwong;
+
