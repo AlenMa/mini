@@ -14,10 +14,13 @@
         <view class="weui-cell__bd">投票PK</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">开发中</view>
       </navigator>
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">todolist</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">计划中</view>
       </navigator>
     </view>
+  </view>
+  <view class="weui-footer">
+    <view class="weui-footer__text">Copyright © 2018-2019 alenma.github.io</view>
   </view>
 </view>
