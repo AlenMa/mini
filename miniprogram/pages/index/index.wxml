@@ -1,2 +1,23 @@
 <!--pages/index/index.wxml-->
-<text>MT盒子</text>
+<view class='page'>
+  <view class='page__hd'>
+    <view class='page__title'>MT盒子</view>
+    <view class='page__desc'>小程序实验室，做一些简单的小应用。</view>
+  </view>
+  <view class='page__bd'>
+    <view class="weui-cells">
+      <navigator url="/pages/dang/index/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">党建题库</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">已完成</view>
+      </navigator>
+      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">投票PK</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">开发中</view>
+      </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">todolist</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">计划中</view>
+      </navigator>
+    </view>
+  </view>
+</view>
