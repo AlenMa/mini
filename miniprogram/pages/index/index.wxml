@@ -2,7 +2,7 @@
 <view class='page'>
   <view class='page__hd'>
     <view class='page__title'>MT盒子</view>
-    <view class='page__desc'>小程序实验室，做一些简单的小应用。</view>
+    <view class='page__desc'>Hello,欢迎来到MT盒子。这里主要做一些简单的小应用。将平时一些idea转化为Demo，也可以下方的公众号，不定期更新。</view>
   </view>
   <view class='page__bd'>
     <view class="weui-cells">
@@ -19,8 +19,9 @@
         <view class="weui-cell__ft weui-cell__ft_in-access">计划中</view>
       </navigator>
     </view>
+    <official-account class='weui-cell'></official-account>
   </view>
-  <view class="weui-footer">
+  <view class="weui-footer weui-footer_fixed-bottom">
     <view class="weui-footer__text">Copyright © 2018-2019 alenma.github.io</view>
   </view>
 </view>
