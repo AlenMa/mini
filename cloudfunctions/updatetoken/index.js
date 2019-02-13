@@ -7,6 +7,7 @@ const db = cloud.database();
 
 // 云函数入口函数
 exports.main = async (event, context) => {
+  console.log('test')
   const result=await db.collection('settings').doc('XElKKonnuWjciv3b').get()
   const appid=result.data.appid;
   const secret = result.data.secret;

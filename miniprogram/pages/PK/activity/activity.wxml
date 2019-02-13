@@ -6,22 +6,24 @@
   </view>
   <view class='page__bd'>
     <view class="weui-cells__title">请选择你支持的</view>
-    <view class="weui-cells weui-cells_after-title">
-      <radio-group bindchange="radioChange">
-        <label class="weui-cell weui-check__label" wx:for="{{activity.choices}}" wx:key="value">
-          <radio class="weui-check" value="{{item.code}}" checked="{{item.checked}}" />
-          <view class="weui-cell__bd">{{item.content}}</view>
-          <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
-            <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
-          </view>
-        </label>
-      </radio-group>
-    </view>
-    <view class="button-sp-area">
-      <button class="weui-btn" type="primary" plain="true">投票</button>
-    </view>
-
+    <form bindsubmit='formSubmit' report-submit='true'>
+      <view class="weui-cells weui-cells_after-title">
+        <radio-group bindchange="radioChange">
+          <label class="weui-cell weui-check__label" wx:for="{{activity.choices}}" wx:key="value">
+            <radio class="weui-check" value="{{item.code}}" checked="{{item.checked}}" />
+            <view class="weui-cell__bd">{{item.content}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+              <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+            </view>
+          </label>
+        </radio-group>
+      </view>
+      <view class="button-sp-area">
+        <button class="weui-btn" type="primary" plain="true" form-type='submit'>投票</button>
+      </view>
+    </form>
   </view>
+
   <view class="weui-footer weui-footer_fixed-bottom">
     <view class="weui-footer__text">Copyright © 2018-2019 alenma.github.io</view>
   </view>

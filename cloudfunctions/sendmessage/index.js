@@ -8,6 +8,8 @@ const _ = db.command
 
 // 云函数入口函数
 exports.main = async (event, context) => {
+  const TEMPLATE_ID=event.template_id
+  const SENDDATA=event.senddata
   const result = await db.collection('settings').doc('XElYeVsqTi00tmBz').get()
   const access_token = result.data.token
   const {
@@ -33,23 +35,10 @@ exports.main = async (event, context) => {
       },
       body: {
         touser: OPENID,
-        template_id: "NlUcvKpHEP67kYq-oZyPaZ49ihC7w5AI3ATxwEvWB0w",
+        template_id: TEMPLATE_ID,
         page: "/pages/index/index",
         form_id: formid,
-        "data": {
-          "keyword1": {
-            "value": "339208499"
-          },
-          "keyword2": {
-            "value": "测试"
-          },
-          "keyword3": {
-            "value": "测试"
-          },
-          "keyword4": {
-            "value": "测试"
-          }
-        }
+        "data": SENDDATA
       },
       json: true
     };
@@ -57,11 +46,12 @@ exports.main = async (event, context) => {
     const resultValue = await rp(AccessToken_options);
     const errmsg1 = resultValue.errmsg;
 
-
-    const wxContext = cloud.getWXContext()
-
     return {
       errmsg: errmsg1
+    }
+  }else{
+    return{
+      errmsg:'no formid'
     }
   }
 
