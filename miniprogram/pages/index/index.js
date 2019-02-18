@@ -28,6 +28,16 @@ Page({
 
       }
     })
+    db.collection('mobiletest3').count({
+      success: res => {
+        console.log(res)
+
+      },
+      fail: err => {
+        console.log(err)
+
+      }
+    })
     // 获取用户信息
     wx.getSetting({
       success: res => {
