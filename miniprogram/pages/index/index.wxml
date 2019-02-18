@@ -10,7 +10,7 @@
         <view class="weui-cell__bd">党建题库</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">已完成</view>
       </navigator>
-      <navigator url="/pages/PK/login/login" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="/pages/PK/index/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">投票PK</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">开发中</view>
       </navigator>
