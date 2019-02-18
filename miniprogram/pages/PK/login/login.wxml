@@ -1,0 +1,13 @@
+<!--miniprogram/pages/PK/index/index.wxml-->
+<view class='page'>
+  <view class='page__hd'>
+    <view class='page__title'>投票PK</view>
+    <view class='page__desc'>欢迎参加投票PK</view>
+  </view>
+  <view class='page__bd'>
+
+  </view>
+  <view class="weui-footer weui-footer_fixed-bottom">
+    <view class="weui-footer__text">Copyright © 2018-2019 alenma.github.io</view>
+  </view>
+</view>

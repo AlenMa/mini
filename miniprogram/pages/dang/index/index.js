@@ -5,13 +5,28 @@ Page({
   data: {
     avatarUrl: './user-unlogin.png',
     userInfo: {},
-    logged: true,
+    logged: false,
     takeSession: false,
     requestResult: ''
   },
   
 
   onLoad: function() {
+    try {
+      const value = wx.getStorageSync('logged')
+      if (value) {
+        console.log(this.data.logged)
+        console.log(value)
+        this.setData(
+          { logged: value}
+        )
+        console.log(this.data.logged)
+      }else{
+        wx.setStorageSync('logged', false)
+      }
+    } catch (e) {
+      console.log('test2')
+    }
     if (!wx.cloud) {
       wx.redirectTo({
         url: '../chooseLib/chooseLib',
@@ -132,6 +147,7 @@ Page({
         avatarUrl: e.detail.userInfo.avatarUrl,
         userInfo: e.detail.userInfo
       })
+      wx.setStorageSync('logged', true)
     }
   },
 

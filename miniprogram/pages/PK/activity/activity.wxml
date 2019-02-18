@@ -8,7 +8,7 @@
     <view class="weui-cells__title">请选择你支持的</view>
     <form bindsubmit='formSubmit' report-submit='true'>
       <view class="weui-cells weui-cells_after-title">
-        <radio-group bindchange="radioChange">
+        <radio-group name='choosevalue' bindchange="radioChange">
           <label class="weui-cell weui-check__label" wx:for="{{activity.choices}}" wx:key="value">
             <radio class="weui-check" value="{{item.code}}" checked="{{item.checked}}" />
             <view class="weui-cell__bd">{{item.content}}</view>

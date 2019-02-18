@@ -23,6 +23,26 @@ Page({
     });
   },
   formSubmit(e){
+    const form_id=e.detail.form_id
+    const value=e.detail.value
+    const db = wx.cloud.database()
+    const activity = JSON.parse(JSON.stringify(this.data.activity).replace(/_id/g, "activity_id"));
+    db.collection('pk_votes').add({
+      data:{
+        activity: activity,
+        choosevalue:value.choosevalue
+      },
+      success:res=>{
+        console.log('恭喜你投票成功')
+        
+
+
+      },
+      fail:err=>{
+        console.log(err)
+
+      }
+    })
     
 
   },

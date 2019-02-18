@@ -1,0 +1,13 @@
+/* miniprogram/pages/login/login.wxss */
+.logo-image{
+  display: flex;
+  height: 400px;
+  justify-content: center; 
+  align-items:center;
+  flex-direction: column;
+}
+.logo {
+  width: 100px; 
+  height: 100px;
+}
+

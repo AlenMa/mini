@@ -8,6 +8,7 @@ const _ = db.command
 
 // 云函数入口函数
 exports.main = async (event, context) => {
+  console.log('测试')
   const TEMPLATE_ID=event.template_id
   const SENDDATA=event.senddata
   const result = await db.collection('settings').doc('XElYeVsqTi00tmBz').get()

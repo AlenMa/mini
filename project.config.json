@@ -10,7 +10,7 @@
 	},
 	"appid": "wxce36b61a123a301f",
 	"projectname": "MTBOX",
-	"libVersion": "2.2.5",
+	"libVersion": "2.6.0",
 	"compileType": "miniprogram",
 	"condition": {
 		"search": {
