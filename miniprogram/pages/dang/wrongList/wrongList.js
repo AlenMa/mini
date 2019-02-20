@@ -217,6 +217,9 @@ Page({
 * 加载错题本
 */
   loadData: function (pageNo) {
+    wx.showLoading({
+      title: '加载中',
+    })
     const db = wx.cloud.database();
     const _ = db.command;
     var u_openid = app.globalData.openid
@@ -229,9 +232,11 @@ Page({
           this.setData({
             questions: res.data
           })
+          wx.hideLoading()
           console.log(res)
 
         },
+   
         fail: err => {
           console.log(err)
 

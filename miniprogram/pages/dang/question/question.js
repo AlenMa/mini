@@ -119,6 +119,9 @@ Page({
    */
   loadData:function(pageNo){
     //加载题目
+    wx.showLoading({
+      title: '加载中',
+    })
     const db=wx.cloud.database();
     const _=db.command
     var selectNum=this.data.start+(pageNo-1)*20
@@ -127,6 +130,7 @@ Page({
         this.setData({
           questions:res.data
         })
+        wx.hideLoading()
         console.log('[数据库] [查询记录] 成功: ', res)
 
       },

@@ -17,11 +17,16 @@ Page({
   onLoad: function (options) {
     const db = wx.cloud.database()
     const _ = db.command
+    wx.showLoading({
+      title: '加载中',
+    })
+
     db.collection('pk_activities').get({
       success:res=>{
         this.setData({
           activities:res.data
         })
+        wx.hideLoading()
         console.log(res)
 
       },
