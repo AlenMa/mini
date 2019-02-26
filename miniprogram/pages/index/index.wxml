@@ -18,6 +18,10 @@
         <view class="weui-cell__bd">todolist</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">计划中</view>
       </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">互联网渠道线下营销工具</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">设计中</view>
+      </navigator>
     </view>
     <official-account class='weui-cell'></official-account>
   </view>
