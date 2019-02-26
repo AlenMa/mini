@@ -7,7 +7,13 @@ Page({
     userInfo: {},
     logged: false,
     takeSession: false,
-    requestResult: ''
+    requestResult: '',
+    inputVal:"",
+    inputShowed:false,
+    resultshowd:true,
+    searchIconSrc:'../../../images/search.png',
+    searchholder:'搜索'
+
   },
   
 
@@ -59,7 +65,44 @@ Page({
       }
     })
   },
-  formSubmit(e) {
+  //键盘输入绑定
+  inputTyping:function(e){
+    inputShowed:false
+
+
+  },
+  showInput:function(e){
+    this.setData({
+      inputShowed:true
+    })
+
+  },
+  hideInput:function(e){
+    this.setData({
+      inputShowed: false,
+      searchIconSrc: '../../../images/search.png',
+      searchholder: '搜索'
+    })
+
+  },
+
+  onSearchTpye:function(e){
+    let type=e.target.dataset.type;
+    console.log(type)
+    if(type=='title'){
+      console.log('搜索题干')
+      this.setData({ searchIconSrc:'../../../images/title.png',
+        searchholder:'搜索题干'})
+
+    }else if(type=='choices'){
+      console.log('搜索选项')
+      this.setData({ searchIconSrc: '../../../images/choices.png',
+        searchholder: '搜索选项'})
+    }
+
+
+  },
+  formSubmit:function(e) {
     const db = wx.cloud.database();
     const _ = db.command;
     db.collection("formIdlist").add({

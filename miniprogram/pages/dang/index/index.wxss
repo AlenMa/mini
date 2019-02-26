@@ -7,7 +7,7 @@ page {
   justify-content: flex-start;
 }
 
-.userinfo, .uploader, .tunnel {
+.userinfo, .formlist, .tunnel {
   margin-top: 40rpx;
   height: 140rpx;
   width: 100%;
@@ -45,9 +45,9 @@ page {
   border: none;
 }
 
-.uploader, .tunnel {
+.formlist {
   height: auto;
-  padding: 0 0 0 40rpx;
+  padding: 0 0 0 0rpx;
   flex-direction: column;
   align-items: flex-start;
   box-sizing: border-box;
@@ -60,83 +60,13 @@ page {
   color: #007aff;
 }
 
-.uploader-container {
-  width: 100%;
-  height: 400rpx;
-  padding: 20rpx 20rpx 20rpx 0;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.uploader-image {
-  width: 100%;
-  height: 360rpx;
-}
-
-.tunnel {
-  padding: 0 0 0 40rpx;
-}
-
-.tunnel-text {
-  position: relative;
-  color: #222;
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.tunnel-text:first-child {
-  border-top: none;
-}
-
-.tunnel-switch {
-  position: absolute;
-  right: 20rpx;
-  top: -2rpx;
-}
-
 .disable {
   color: #888;
 }
 
-.service {
-  position: fixed;
-  right: 40rpx;
-  bottom: 40rpx;
-  width: 140rpx;
-  height: 140rpx;
-  border-radius: 50%;
-  background: linear-gradient(#007aff, #0063ce);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  transition: all 300ms ease;
-}
-
-.service-button {
-  position: absolute;
-  top: 40rpx;
-}
-
-.service:active {
-  box-shadow: none;
-}
-
-.request-text {
-  padding: 20rpx 0;
-  font-size: 24rpx;
-  line-height: 36rpx;
-  word-break: break-all;
-}
 /* 
 去button样式 */
+
 button {
   font-size: 28rpx;
   background-color: #fff;
@@ -144,7 +74,7 @@ button {
   padding: 0;
   margin: 0;
   line-height: 1;
-  border-radius:0;
+  border-radius: 0;
 }
 
 input {
@@ -155,4 +85,43 @@ input {
 
 button::after {
   border: none;
+}
+
+.search-result {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search_content {
+  display: flex;
+  flex-direction: row;
+}
+
+.search_title {
+  color: #888;
+  margin: 20rpx;
+}
+
+.search_type {
+  color: #007aff;
+  margin: 20rpx;
+}
+
+.search-icon {
+  width: 45rpx;
+  height: 45rpx;
+}
+
+.weui-search-bar {
+  position: relative;
+  padding: 8px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  box-sizing: border-box;
+  background-color: #efeff4;
+  border-top: 1rpx solid #d7d6dc;
+  border-bottom: 1rpx solid #d7d6dc;
 }
