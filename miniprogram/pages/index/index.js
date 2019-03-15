@@ -1,6 +1,6 @@
 // pages/index/index.js
-const app=getApp()
-const md5=require('../../libs/md5.js');
+const app = getApp()
+const md5 = require('../../libs/md5.js');
 Page({
 
   /**
@@ -14,11 +14,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let b64 = md5.hexMD5('13687442129\n'); 
+    let b64 = md5.hexMD5('13687442129\n');
     console.log(b64)
     const db = wx.cloud.database()
     const _ = db.command
-    db.collection('mobiletest3').where({ mobileno: b64}).get({
+    db.collection('mobiletest3').where({ mobileno: b64 }).get({
       success: res => {
         console.log(res)
 
@@ -46,18 +46,18 @@ Page({
           wx.getUserInfo({
             success: res => {
               app.globalData.userInfo = res.userInfo
-              app.globalData.islogin=true
+              app.globalData.islogin = true
             }
           })
         } else {
-          app.globalData.islogin=false
+          app.globalData.islogin = false
           wx.navigateTo({
             url: '/pages/login/login',
           })
         }
       }
     })
-//获取openid
+    //获取openid
     wx.cloud.callFunction({
       name: 'getopenid',
       data: {},
@@ -119,5 +119,17 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  getlocation: function () {
+
+    wx.chooseLocation({
+      success: function (res) {
+        console.log(res)
+
+      }
+    })
+    
+
   }
 })
+

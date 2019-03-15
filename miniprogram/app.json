@@ -6,7 +6,9 @@
     "pages/dang/question/question",
     "pages/dang/wrongList/wrongList",
     "pages/PK/index/index",
-    "pages/PK/activity/activity"
+    "pages/PK/activity/activity",
+    "pages/netreport/index/index",
+    "pages/netreport/success/success"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -14,5 +16,10 @@
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "MT盒子",
     "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
   }
 }
