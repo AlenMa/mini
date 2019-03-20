@@ -12,15 +12,15 @@
           <view class="weui-label">联系电话</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" bindinput="bindKeyInput" type='number'placeholder="请输入您的联系电话" value='{{mobile}}' />
+          <input class="weui-input" bindinput="bindKeyInput" type='number' placeholder="请输入您的联系电话" value='{{mobile}}' />
         </view>
       </view>
-            <view class="weui-cell weui-cell_input">
+      <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">故障位置</view>
         </view>
         <view class="weui-cell__bd weui-cell__ft_in-access">
-          <input disabled='true' bindtap='chooselocation' class="weui-input" placeholder="请选择故障位置"  value='{{location.name}}'/>
+          <input disabled='true' bindtap='chooselocation' class="weui-input" placeholder="请选择故障位置" value='{{location.name}}' />
         </view>
       </view>
       <view class="weui-cell weui-cell_select">
@@ -39,13 +39,49 @@
           <view class="weui-label">遇到的问题</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="bindQuestionChange" value="{{questionindex}}" range="{{questiones}}">
-            <view class="weui-select weui-select_in-select-after">{{questiones[questionindex]}}</view>
+          <picker mode='multiSelector' bindcolumnchange='bindQuestionColumnChange' bindchange="bindQuestionChange" value="{{questionindex}}" range="{{questiones}}">
+            <view class="weui-select weui-select_in-select-after">{{questiones[0][questionindex[0]]}} {{questiones[1][questionindex[1]]}}</view>
           </picker>
         </view>
       </view>
     </view>
-    <button bindtap='submit' class="weui-btn" type="primary">提交</button>
+    <!-- <button bindtap='submit' class="weui-btn" type="primary">提交</button> -->
+    <view style="position:relative;margin:50rpx">
+      <form bindsubmit="formSubmit" report-submit="true">
+        <button formType="submit" class="btn">
+          <view class="vv">
+            <form bindsubmit="formSubmit1" report-submit="true">
+              <button formType="submit" class="btn">
+                <view class="vv">
+                  <form bindsubmit="formSubmit1" report-submit="true">
+                    <button formType="submit" class="btn">
+                      <view class="vv">
+                        <form bindsubmit="formSubmit1" report-submit="true">
+                          <button formType="submit" class="btn">
+                            <view class="vv">
+                              <form bindsubmit="formSubmit1" report-submit="true">
+                                <button formType="submit" class="btn">
+                                  <view class="vv" style="margin:0 15px;">
+                                    提交
+                                  </view>
+                                </button>
+                              </form>
+                            </view>
+                          </button>
+                        </form>
+                      </view>
+                    </button>
+                  </form>
+                </view>
+              </button>
+            </form>
+          </view>
+        </button>
+      </form>
+    </view>
+
+
+
   </view>
   <view class="weui-footer weui-footer_fixed-bottom">
     <view class="weui-footer__text">Copyright © 2018-2019 alenma.github.io</view>
