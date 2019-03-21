@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "工单详情",
+  "usingComponents": {
+    "wux-steps": "../../../libs/wuxui/steps/index",
+    "wux-step": "../../../libs/wuxui/step/index",
+    "wux-card": "../../../libs/wuxui/card/index",
+    "wux-wing-blank": "../../../libs/wuxui/wing-blank/index"
+  }
+}

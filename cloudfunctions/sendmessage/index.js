@@ -10,7 +10,12 @@ const _ = db.command
 exports.main = async (event, context) => {
   console.log('测试')
   const TEMPLATE_ID=event.template_id
+  let PAGE = event.page
+  if (typeof (PAGE) === "undefined") {
+    PAGE ='/pages/index/index'
+  }
   const SENDDATA=event.senddata
+ 
   const result = await db.collection('settings').doc('XElYeVsqTi00tmBz').get()
   const access_token = result.data.token
   const {
@@ -38,7 +43,7 @@ exports.main = async (event, context) => {
       body: {
         touser: OPENID,
         template_id: TEMPLATE_ID,
-        page: "/pages/index/index",
+        page: PAGE,
         form_id: formid,
         "data": SENDDATA
       },

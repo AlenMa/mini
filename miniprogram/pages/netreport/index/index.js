@@ -61,10 +61,14 @@ Page({
     console.log('picker question 发生选择改变，携带值为', e.detail.value);
     wx.chooseLocation({
       success: res => {
-        console.log(res)
+        if(res.address.indexOf('佛山')!=-1){
         this.setData({
           location: res
-        })
+        })}else{
+          wx.showToast({
+            title: '请选择佛山地区地址',
+          })
+        }
 
       }
     })
@@ -75,8 +79,10 @@ Page({
     })
   },
   getformid: function (e) {
-    console.log('this' + e.detail.formId)
+    console.log(e.detail.formId)
+
     let formid = e.detail.formId
+    if (formid !='the formId is a mock one'){
     const db = wx.cloud.database()
     const _ = db.command
     db.collection('formIdlist').add({
@@ -94,6 +100,7 @@ Page({
         console.log(err)
       }
     })
+    }
 
   },
 
@@ -133,12 +140,14 @@ Page({
           addressType: this.data.addressTypes[this.data.addressTypeindex],
           question: this.data.questiones[0][this.data.questionindex[0]] + ' ' + this.data.questiones[1][this.data.questionindex[1]],
           rec_time: util.timestampToString(new Date().getTime(), 'L'),
-          rec_timestamp: new Date().getTime()
+          rec_timestamp: new Date().getTime(),
+          current:0
         },
 
-
-
         success: res => {
+          console.log('提交成功')
+          console.log(res)
+          let orderid = res._id
           const senddata = {
             "keyword1": {
               "value": this.data.questiones[0][this.data.questionindex[0]] + ' ' + this.data.questiones[1][this.data.questionindex[1]]
@@ -154,7 +163,8 @@ Page({
             name: 'sendmessage',
             data: {
               template_id: 'I4vH8ne9V6q1jgZ9pi7hCMsOWg_cF0g43bJRduotTO8',
-              senddata: senddata
+              senddata: senddata,
+              page:'/pages/netreport/order/order?id='+orderid
             },
             success: res => {
               console.log('[云函数] [sendmessage] user errmsg: ', res.result.errmsg)
@@ -185,7 +195,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(util.timestampToString(new Date().getTime(), 'L'))
 
   },
 
