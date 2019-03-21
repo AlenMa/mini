@@ -18,7 +18,8 @@ exports.main = async (event, context) => {
     APPID,
     UNIONID,
   } = cloud.getWXContext()
-  const result2 = await db.collection('formIdlist').where({ openid: OPENID, isactive: true }).get()
+  console.log(OPENID)
+  const result2 = await db.collection('formIdlist').where({ _openid: OPENID, isactive: true }).get()
   const formid = result2.data[0].formId
   if (formid != undefined) {
     const id = result2.data[0]._id

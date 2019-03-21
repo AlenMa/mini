@@ -1,21 +1,5 @@
 /* miniprogram/pages/netreport/index/index.wxss */
 
-/* 
-去button样式 */
-
-/* button {
-  font-size: 28rpx;
-  background-color: #fff;
-  border: none;
-  padding: 0;
-  margin: 0;
-  line-height: 1;
-  border-radius: 0;
-}
-
-button::after {
-  border: none;
-} */
 
 .btn {
     width: 100%;
@@ -30,17 +14,26 @@ button::after {
     margin-bottom: 40px;
 }
 
-button::after {
-    border: none;
+.btnform::after {
+  border: none;
 }
 
-.vv {
-    background: #1AAD19;
-    line-height: 2.55555556;
-    font-size: 18px;
-    text-align: center;
-    top: 0;
-    color: #fff;
-    border: 0;
-    border-radius: 5px;
+.btnform {
+  border-radius:0;
+  background-color:#fff;
+  border: 0rpx;
+  margin: 5rpx;
+  padding: 5rpx;
+  height: 100%;
+  display: flex;
+  align-items:center;
+  line-height:1;
+  font-size: 32rpx;
+}
+
+.submitbtn{
+  margin-top: 20rpx;
+  width: 80%;
+  display: flex;
+  justify-content: center;
 }

@@ -9,9 +9,9 @@ Page({
   data: {
     addressTypes: ['室内（地下）', '室内（1-8层）', '室内（8层以上）', '室外'],
     addressTypeindex: 0,
-    questiones: [['手机无信号', '手机信号不畅'], []],
+    questiones: [['手机无信号', '手机信号不畅'], ['']],
     questionindex: [0, 0],
-    location: '请选择您的故障位置',
+    location: { name: '请选择您的故障位置' },
     mobile: ''
 
 
@@ -32,19 +32,19 @@ Page({
 
     }
     data.questionindex[e.detail.column] = e.detail.value;
-    if(e.detail.column==0){
-    switch (data.questionindex[0]) {
-      case 0:
-        data.questiones[1] = []
-        data.questionindex[1] = 0;
-        break;
-      case 1:
-        data.questiones[1] = ['语音通话问题', '手机上网问题', '语音上网都有问题']
-        data.questionindex[1] = 0;
-        break;
+    if (e.detail.column == 0) {
+      switch (data.questionindex[0]) {
+        case 0:
+          data.questiones[1] = []
+          data.questionindex[1] = 0;
+          break;
+        case 1:
+          data.questiones[1] = ['语音通话问题', '手机上网问题', '语音上网都有问题']
+          data.questionindex[1] = 0;
+          break;
 
-    }
-    this.setData(data)
+      }
+      this.setData(data)
     }
 
   },
@@ -74,8 +74,30 @@ Page({
       mobile: e.detail.value
     })
   },
+  getformid: function (e) {
+    console.log('this' + e.detail.formId)
+    let formid = e.detail.formId
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('formIdlist').add({
+      data: {
+        formId: formid,
+        openid: app.globalData.openid,
+        isactive: true,
+        subtime: Number(new Date())
+      },
 
-  submit: function () {
+      success: res => {
+        console.log('插入成功')
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+
+  },
+
+  submit: function (e) {
     console.log(this.data.mobile)
     if (this.data.mobile == '') {
       console.log(this.data.mobile)
@@ -90,7 +112,7 @@ Page({
           }
         }
       })
-    } else if (this.data.location == '请选择您的故障位置') {
+    } else if (this.data.location.name == '请选择您的故障位置') {
       wx.showToast({
         title: '请选择故障位置',
 
@@ -101,7 +123,7 @@ Page({
       wx.showLoading({
         title: '加载中',
       })
-      
+
 
       db.collection('netreport').add({
         data: {
@@ -114,8 +136,36 @@ Page({
           rec_timestamp: new Date().getTime()
         },
 
+
+
         success: res => {
+          const senddata = {
+            "keyword1": {
+              "value": this.data.questiones[0][this.data.questionindex[0]] + ' ' + this.data.questiones[1][this.data.questionindex[1]]
+            },
+            "keyword2": {
+              "value": this.data.location.name
+            },
+            "keyword3": {
+              "value": util.timestampToString(new Date().getTime(), 'L')
+            }
+          }
+          wx.cloud.callFunction({
+            name: 'sendmessage',
+            data: {
+              template_id: 'I4vH8ne9V6q1jgZ9pi7hCMsOWg_cF0g43bJRduotTO8',
+              senddata: senddata
+            },
+            success: res => {
+              console.log('[云函数] [sendmessage] user errmsg: ', res.result.errmsg)
+
+            },
+            fail: err => {
+              console.error('[云函数] [sendmessage] 调用失败', err)
+            }
+          })
           wx.redirectTo({
+
             url: '../success/success',
           })
         },
@@ -123,6 +173,7 @@ Page({
           console.log(err)
         }
       })
+
 
     }
 
@@ -185,46 +236,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  formSubmit: function (e) {
-    this.formids.push(e.detail.formId);
-    console.log('所有的formid', this.formids);
-    console.log(this.formids);
-    const db = wx.cloud.database();
-    const _ = db.command;
-
-
-    // db.collection('netreportformid').add({
-    //   data: {
-    //     openid: app.globalData.openid,
-    //     formids:this.formids,
-    //     rec_time: util.timestampToString(new Date().getTime(), 'L'),
-    //     rec_timestamp: new Date().getTime()
-    //   },
-
-    //   success: res => {
-    //     console.log('插入成功')
-    //   },
-    //   fail: err => {
-    //     console.log(err)
-    //   }
-    // })
-    wx.cloud.callFunction({
-      // 需调用的云函数名
-      name: 'addformids',
-      // 传给云函数的参数
-      data: {
-        formids: this.formids
-      },
-      // 成功回调
-      complete: console.log
-    })
-
-    this.submit();
-  },
-  formSubmit1: function (e) {
-    this.formids.push(e.detail.formId);
-  },
-  formids:[]
+  }
 })

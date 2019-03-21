@@ -11,13 +11,12 @@ exports.main = async (event, context) => {
   for (var i = 0; i < formids.length;i++){
     console.log('test:')
     console.log(formids[i])
-    await db.collection('netreportformid').add({
+    await db.collection('formIdlist').add({
       data: {
+        formId: formids[i],
         openid: wxContext.OPENID,
-        formid: formids[i],
-        rec_timestamp: new Date().getTime(),
-        ifuse:0
-
+        isactive: true,
+        subtime: Number(new Date())
       },
 
       success: res => {

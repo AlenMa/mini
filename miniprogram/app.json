@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/netreport/index/index",
     "pages/index/index",
     "pages/login/login",
     "pages/dang/index/index",
@@ -7,7 +8,6 @@
     "pages/dang/wrongList/wrongList",
     "pages/PK/index/index",
     "pages/PK/activity/activity",
-    "pages/netreport/index/index",
     "pages/netreport/success/success"
   ],
   "window": {

@@ -15,22 +15,33 @@
           <input class="weui-input" bindinput="bindKeyInput" type='number' placeholder="请输入您的联系电话" value='{{mobile}}' />
         </view>
       </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
+
+            <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
           <view class="weui-label">故障位置</view>
         </view>
-        <view class="weui-cell__bd weui-cell__ft_in-access">
-          <input disabled='true' bindtap='chooselocation' class="weui-input" placeholder="请选择故障位置" value='{{location.name}}' />
+        <view class="weui-cell__bd">
+        <form bindsubmit='getformid' report-submit='true'>
+            <view class="weui-select weui-select_in-select-after">
+             <button class="btnform" form-type='submit' bindtap='chooselocation'>{{location.name}}</button></view>
+          </form>
         </view>
       </view>
+
+
+
+
       <view class="weui-cell weui-cell_select">
         <view class="weui-cell__hd weui-cell__hd_in-select-after">
           <view class="weui-label">该位置属于</view>
         </view>
         <view class="weui-cell__bd">
+        <form bindsubmit='getformid' report-submit='true'>
           <picker bindchange="bindAddressTypeChange" value="{{addressTypeindex}}" range="{{addressTypes}}">
-            <view class="weui-select weui-select_in-select-after">{{addressTypes[addressTypeindex]}}</view>
+            <view class="weui-select weui-select_in-select-after">
+             <button class="btnform" form-type='submit' >{{addressTypes[addressTypeindex]}}</button></view>
           </picker>
+          </form>
         </view>
       </view>
 
@@ -39,46 +50,21 @@
           <view class="weui-label">遇到的问题</view>
         </view>
         <view class="weui-cell__bd">
+        <form bindsubmit='getformid' report-submit='true'>
           <picker mode='multiSelector' bindcolumnchange='bindQuestionColumnChange' bindchange="bindQuestionChange" value="{{questionindex}}" range="{{questiones}}">
-            <view class="weui-select weui-select_in-select-after">{{questiones[0][questionindex[0]]}} {{questiones[1][questionindex[1]]}}</view>
+          <view class='weui-select weui-select_in-select-after '>
+             <button class="btnform" form-type='submit' >{{questiones[0][questionindex[0]]}} {{questiones[1][questionindex[1]]}}</button>
+             </view>
           </picker>
+          
+          </form>
         </view>
       </view>
     </view>
-    <!-- <button bindtap='submit' class="weui-btn" type="primary">提交</button> -->
-    <view style="position:relative;margin:50rpx">
-      <form bindsubmit="formSubmit" report-submit="true">
-        <button formType="submit" class="btn">
-          <view class="vv">
-            <form bindsubmit="formSubmit1" report-submit="true">
-              <button formType="submit" class="btn">
-                <view class="vv">
-                  <form bindsubmit="formSubmit1" report-submit="true">
-                    <button formType="submit" class="btn">
-                      <view class="vv">
-                        <form bindsubmit="formSubmit1" report-submit="true">
-                          <button formType="submit" class="btn">
-                            <view class="vv">
-                              <form bindsubmit="formSubmit1" report-submit="true">
-                                <button formType="submit" class="btn">
-                                  <view class="vv" style="margin:0 15px;">
-                                    提交
-                                  </view>
-                                </button>
-                              </form>
-                            </view>
-                          </button>
-                        </form>
-                      </view>
-                    </button>
-                  </form>
-                </view>
-              </button>
-            </form>
-          </view>
-        </button>
-      </form>
-    </view>
+    <form bindsubmit='getformid' report-submit='true'>
+    <button class='submitbtn' form-type='submit' bindtap='submit' type="primary">提交</button>
+    </form>
+  
 
 
 
