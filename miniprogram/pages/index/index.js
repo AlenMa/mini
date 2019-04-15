@@ -1,6 +1,5 @@
 // pages/index/index.js
 const app = getApp()
-const md5 = require('../../libs/md5.js');
 const util = require('../../libs/util.js')
 Page({
 
@@ -15,51 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    util.relogin()
-
-    // let b64 = md5.hexMD5('13687442129\n');
-    // console.log(b64)
-    // const db = wx.cloud.database()
-    // const _ = db.command
-    // db.collection('mobiletest3').where({ mobileno: b64 }).get({
-    //   success: res => {
-    //     console.log(res)
-
-    //   },
-    //   fail: err => {
-    //     console.log(err)
-
-    //   }
-    // })
-    // db.collection('mobiletest3').count({
-    //   success: res => {
-    //     console.log(res)
-
-    //   },
-    //   fail: err => {
-    //     console.log(err)
-
-    //   }
-    // })
-    // 获取用户信息
-    // wx.login({
-    //   success(res) {
-    //     if (res.code) {
-    //       // 发起网络请求
-    //       console.log('登陆成功'+res.code)
-    //       wx.cloud.callFunction({
-    //         name:'getSession',
-    //         data:{code:res.code},
-    //         success:res=>{
-
-    //         }
-
-    //       })
-    //     } else {
-    //       console.log('登录失败！' + res.errMsg)
-    //     }
-    //   }
-    // })
+    util.login() //检验session
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -90,9 +45,28 @@ Page({
         console.error('[云函数] [getopenid] 调用失败', err)
       }
     })
+    //获取运动数据
+    wx.getWeRunData({
+      success(res) {
+        const encryptedData = res.encryptedData
+        const iv = res.iv
+        console.log('encryptedData:' + encryptedData)
+        console.log('iv:' + iv)
+        wx.cloud.callFunction({
+          name: 'decryptData',
+          data: { encryptedData: encryptedData,
+            iv: iv},
+          success: res => {
+            console.log(res)
+          },
+          fail: err => {
+           
+          }
+        })
 
+      }
+    })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -143,11 +117,11 @@ Page({
   },
   getlocation: function () {
     wx.getSetting({
-      success:res=>{
-        if (!res.authSetting['scope.werun']){
+      success: res => {
+        if (!res.authSetting['scope.werun']) {
           wx.authorize({
             scope: 'scope.werun',
-            success:res=>{
+            success: res => {
               wx.getWeRunData({
                 success(res) {
                   const encryptedData = res.encryptedData
@@ -158,13 +132,13 @@ Page({
               })
 
             },
-            fail:res=>{
+            fail: res => {
               wx.showModal({
                 title: '提示',
                 content: '请开启授权',
-                success:res=>{
+                success: res => {
                   wx.openSetting({
-                    success:res=>{
+                    success: res => {
                       wx.getWeRunData({
                         success(res) {
                           const encryptedData = res.encryptedData
@@ -174,14 +148,13 @@ Page({
                         }
                       })
                     }
-                    
+
                   })
                 }
               })
             }
           })
-
-        }else{
+        } else {
           wx.getWeRunData({
             success(res) {
               const encryptedData = res.encryptedData

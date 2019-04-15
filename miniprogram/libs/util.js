@@ -12,7 +12,6 @@ function timestampToString(timestamp) {
 function login(){
   wx.checkSession({
     success() {
-      // session_key 未过期，并且在本生命周期一直有效
       console.log('session_key 未过期，并且在本生命周期一直有效')
       return true
     },
@@ -28,10 +27,8 @@ function login(){
               name: 'getSession',
               data: { code: res.code },
               success: res => {
-                return true
-
+                console.log(res.result)
               }
-
             })
           } else {
             console.log('登录失败！' + res.errMsg)
@@ -53,7 +50,7 @@ function relogin(){
           name: 'getSession',
           data: { code: res.code },
           success: res => {
-            return true
+            console.log(res.result)
           }
 
         })
