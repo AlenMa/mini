@@ -16,7 +16,7 @@ Page({
   },
   onLoad: function (options){
     console.log(options)
-    let orderid ='XJND58DR1TiNCQ8W';
+    let orderid =options.id;
     const db=wx.cloud.database();
     db.collection('netreport').doc(orderid).get({
       success:res=>{

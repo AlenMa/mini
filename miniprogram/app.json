@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/netreport/index/index",
     "pages/index/index",
     "pages/login/login",
     "pages/dang/index/index",
@@ -9,7 +8,8 @@
     "pages/PK/index/index",
     "pages/PK/activity/activity",
     "pages/netreport/success/success",
-    "pages/netreport/order/order"
+    "pages/netreport/order/order",
+    "pages/netreport/index/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -22,5 +22,6 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

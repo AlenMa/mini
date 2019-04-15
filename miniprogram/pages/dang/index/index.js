@@ -134,40 +134,8 @@ Page({
       wx.navigateTo({
         url: '../wrongList/wrongList',
       })
-      const template_id ="zLcuJW1wzvtdKOjlVoA1B2uargQAeXTG5bJl760j3g4"
-      const mydate=new Date()
-      const mydate2 = mydate.toLocaleString()
-      console.log(mydate2)
-      const senddata = {
-        "keyword1": {
-          "value": "你支持什么豆花"
-        },
-        "keyword2": {
-          "value": this.data.userInfo.nickName
-        },
-        "keyword3": {
-          "value": "甜"
-        },
-        "keyword4": {
-          "value": mydate2
-        },
-        "keyword5": {
-          "value": "将于明天开奖"
-        }
-      }
-      wx.cloud.callFunction({
-        name: 'sendmessage',
-        data: { template_id: template_id,
-          senddata: senddata
-        },
-        success: res => {
-          console.log('[云函数] [sendmessage] user errmsg: ', res.result.errmsg)
-          
-        },
-        fail: err => {
-          console.error('[云函数] [sendmessage] 调用失败', err)
-        }
-      })
+
+      
 
     }
     console.log('form发生了submit事件，携带数据为：', e.detail)

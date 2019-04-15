@@ -12,6 +12,9 @@
 	"projectname": "MTBOX",
 	"libVersion": "2.6.0",
 	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {
 		"search": {
 			"current": -1,

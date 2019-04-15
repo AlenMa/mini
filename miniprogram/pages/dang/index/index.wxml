@@ -32,7 +32,7 @@
     <form bindsubmit='formSubmit' report-submit='true'>
       <!-- 题库 -->
       <view class="formlist">
-        <button data-type="ques" form-type='submit' class="uploader-text">题目</button>
+        <button data-type="ques" form-type='submit' class="uploader-text">练习</button>
       </view>
       <!-- 错题本 -->
       <view class="formlist">

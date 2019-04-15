@@ -50,12 +50,21 @@ exports.main = async (event, context) => {
       json: true
     };
     //获取AccessToken
-    const resultValue = await rp(AccessToken_options);
-    const errmsg1 = resultValue.errmsg;
+    // const resultValue = await rp(AccessToken_options);
+    // const errmsg1 = resultValue.errmsg;
+    const result = await cloud.openapi.templateMessage.send({
+      touser: OPENID,
+      page: PAGE,
+      data: SENDDATA,
+      templateId: TEMPLATE_ID,
+      formId: formid
+    })
+    console.log(result)
+    return result
 
-    return {
-      errmsg: errmsg1
-    }
+    // return {
+    //   errmsg: errmsg1
+    // }
   }else{
     return{
       errmsg:'no formid'
