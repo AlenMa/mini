@@ -10,10 +10,54 @@ Page({
 
   },
 
+   UnicodeToUtf8(unicode) {
+    var uchar;
+    var utf8str = "";
+    var i;
+    for(i = 0; i<unicode.length;i+= 2){
+  uchar = (unicode[i] << 8) | unicode[i + 1];        //UNICODE为2字节编码，一次读入2个字节 
+  utf8str = utf8str + String.fromCharCode(uchar);  //使用String.fromCharCode强制转换 
+}
+return utf8str; 
+},
+ Utf8ToUnicode(strUtf8) {
+  var i, j;
+  var uCode;
+  var temp = new Array();
+  for (i = 0, j = 0; i < strUtf8.length; i++) {
+    uCode = strUtf8.charCodeAt(i);
+    if (uCode < 0x100) {         //ASCII字符 
+      temp[j++] = 0x00;
+      temp[j++] = uCode;
+    } else if (uCode < 0x10000) {
+      temp[j++] = (uCode >> 8) & 0xff;
+      temp[j++] = uCode & 0xff;
+    } else if (uCode < 0x1000000) {
+      temp[j++] = (uCode >> 16) & 0xff;
+      temp[j++] = (uCode >> 8) & 0xff;
+      temp[j++] = uCode & 0xff;
+    } else if (uCode < 0x100000000) {
+      temp[j++] = (uCode >> 24) & 0xff;
+      temp[j++] = (uCode >> 16) & 0xff;
+      temp[j++] = (uCode >> 8) & 0xff;
+      temp[j++] = uCode & 0xff;
+    } else {
+      break;
+    }
+  }
+  temp.length = j;
+  return temp;
+},
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var teststr='mateng'
+    var utfstr=this.UnicodeToUtf8(teststr)
+    console.log(utfstr)
+    console.log(teststr)
+
     util.login() //检验session
     wx.getSetting({
       success: res => {
